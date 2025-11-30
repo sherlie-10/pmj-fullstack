@@ -1,0 +1,15 @@
+/target/
+/build/
+/out/
+/.gradle/
+/.mvn/
+/.settings/
+/node_modules/
+*.log
+*.tmp
+*.class
+*.jar
+.DS_Store
+.env
+.idea/
+.vscode/

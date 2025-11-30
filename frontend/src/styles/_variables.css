@@ -1,0 +1,18 @@
+/* src/styles/_variables.css - theme tokens */
+:root{
+  --blue-600: #213355;
+  --blue-500: #283854;
+  --cyan-400: #3a5769;
+  --bg: #e2ebef;
+  --card: #c3dce7;
+  --muted: #6b7280;
+  --glass: rgba(22, 20, 3, 0.75);
+  --radius: 14px;
+  --accent: linear-gradient(90deg,var(--blue-600),#283f63 65%);
+  --footer-grad-a: #131821;
+  --footer-grad-b: #1e335c;
+  --gold: #b29a0f;
+  --container-width: 1150px;
+  --shadow-1: 0 10px 30px rgba(12,34,80,0.06);
+  --card-grad: linear-gradient(180deg, rgba(255,255,255,0.95), var(--card));
+}

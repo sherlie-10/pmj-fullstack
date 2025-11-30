@@ -1,0 +1,23 @@
+.auth-tabs { display:flex; gap:12px; margin-bottom:14px; }
+.auth-tab { padding:8px 14px; border-radius:10px; cursor:pointer; font-weight:700; }
+.auth-tab.active { background:#213355; color:white; box-shadow:0 6px 18px rgba(15,59,102,0.12); }
+
+
+.form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-top: 6px;
+}
+
+.form-inline {
+  display: flex;
+  gap: 8px;
+}

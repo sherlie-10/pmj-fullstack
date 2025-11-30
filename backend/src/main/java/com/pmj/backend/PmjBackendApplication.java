@@ -1,0 +1,13 @@
+package com.pmj.backend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class PmjBackendApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PmjBackendApplication.class, args);
+	}
+
+}

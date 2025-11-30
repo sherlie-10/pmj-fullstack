@@ -1,0 +1,472 @@
+/* ==========================
+   PMJ Shipments — styles
+   Single file: src/styles/shipments.css
+   Clean, legible, polished UI for cards + table + modals
+   ========================== */
+
+/* ==========================
+   Theme tokens (local overrides)
+   ========================== */
+:root{
+  --pmj-bg: #eef6f8;
+  --card-bg: #ffffff;
+  --muted: #64748b;
+  --text: #0f172a;
+  --accent: #213355;
+  --accent-2: #283f63;
+  --primary: #1f6feb;
+  --primary-600: #155fcc;
+  --glass: rgba(11,97,255,0.06);
+  --border-strong: rgba(15,23,42,0.06);
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --shadow-soft: 0 10px 30px rgba(15,23,42,0.06);
+  --shadow-elev: 0 22px 60px rgba(20,40,80,0.09);
+  --header-h: 64px;
+  --page-max: 1200px;
+  --gutter: 24px;
+
+  /* typography hints (optional) */
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* ==========================
+   Page container
+   ========================== */
+.container.shipments-page{
+  max-width: var(--page-max);
+  margin: calc(var(--header-h) + 24px) auto 64px; /* give room for sticky header */
+  padding: 0 var(--gutter);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background: transparent;
+}
+
+/* ==========================
+   Top section (title + actions)
+   ========================== */
+.shipments-topbar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom: 18px;
+}
+
+.shipments-topbar .left{
+  min-width: 280px;
+}
+
+.shipments-topbar h2{
+  margin:0;
+  font-size:26px;
+  font-weight:800;
+  color:var(--text);
+  line-height:1.05;
+}
+
+.shipments-topbar .muted{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:15px;
+}
+
+/* segmented control + create button */
+.shipments-actions-row{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:flex-end;
+}
+
+/* The segmented control is small, compact, and neutral.
+   It's rendered only by frontend when the user is admin so
+   no extra JS/CSS needed to hide it for public users. */
+.segmented{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:linear-gradient(180deg,#fff,#fbfdff);
+  border-radius:12px;
+  padding:6px;
+  border:1px solid var(--border-strong);
+  box-shadow:var(--shadow-soft);
+}
+
+.segmented button{
+  background:transparent;
+  border:0;
+  padding: 6px 14px;
+  font-weight:700;
+  color:var(--accent-2);
+  border-radius:8px;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+  font-size:14px;
+}
+.segmented button:hover{ background: rgba(15,23,42,0.02); }
+.segmented button.active{
+  background: linear-gradient(180deg,#eef6ff,#f7fbff);
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.02);
+  color: var(--text);
+}
+
+/* Create button */
+.btn-create{
+  padding:8px 14px;
+  border-radius:10px;
+  background: linear-gradient(180deg,var(--primary),var(--primary-600));
+  color:#fff;
+  box-shadow:0 12px 30px rgba(31,111,235,0.14);
+  border:0;
+  font-weight:700;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  font-size:14px;
+}
+.btn-create:hover{ transform: translateY(-1px); }
+
+/* ==========================
+   Search / tracking widget
+   ========================== */
+.tracking-widget{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.tracking-widget input{
+  min-width:240px;
+  max-width:44vw;
+  padding:12px 16px;
+  border-radius:10px;
+  border:1px solid var(--border-strong);
+  background:linear-gradient(180deg,#fff,#fbfdff);
+  font-size:14px;
+  color:var(--text);
+}
+
+.tracking-widget .btn{
+  height:40px;
+  padding:8px 12px;
+  border-radius:10px;
+  border:0;
+  background: linear-gradient(180deg,var(--primary),var(--primary-600));
+  color:#fff;
+  box-shadow: 0 8px 22px rgba(31,111,235,0.12);
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* ship count text (between controls) */
+.ship-count{
+  margin-left:6px;
+  color:var(--accent-2);
+  font-weight:700;
+  font-size:14px;
+}
+
+/* ==========================
+   Grid & card layout
+   ========================== */
+.card-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  gap:22px;
+  margin-top:18px;
+}
+
+/* Card container */
+.shipment-card{
+  background: linear-gradient(180deg,var(--card-bg), #fbfdff);
+  border-radius: var(--radius-lg);
+  padding:20px;
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-elev);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  position: relative;
+  overflow: visible;
+}
+.shipment-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 36px 90px rgba(20,40,80,0.12);
+}
+
+/* decorative accent circle (subtle) */
+.shipment-card::after{
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  width: 10px; height: 10px; border-radius:50%;
+  background: linear-gradient(180deg,var(--accent),var(--accent-2));
+  opacity:0.06;
+  pointer-events:none;
+}
+
+/* header layout */
+.card-header{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
+/* --- paste here: right after .card-header / .meta definitions --- */
+
+/* Customer name styling (clear, bold, slightly smaller than tracking) */
+.customer{
+  font-size: 14px;
+  color: var(--accent-2);
+  font-weight: 700;
+  margin-top: 6px;
+  line-height: 1.1;
+  max-width: 36ch; /* prevent overflow */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* small / tiny text helpers used in card */
+.small{ font-size: 13px; color: var(--muted); margin-top:6px; }
+.tiny{ font-size: 12px; color: var(--muted); padding:6px 10px; border-radius:8px; }
+
+/* monospace helper for timestamps / debug lines */
+.mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:13px; color:var(--muted); }
+
+/* pill color variants consistent with your palette */
+.pill-grey{ background: linear-gradient(180deg,#f7f9fb,#fbfdff); color:#6b7280; border:1px solid rgba(15,23,42,0.04); }
+.pill-blue{ background: linear-gradient(180deg,#eaf3ff,#e6f6ff); color:#0b61d6; border:1px solid #dbeeff; }
+.pill-yellow{ background: linear-gradient(180deg,#fff8e5,#fff5dd); color:#7a4f00; border:1px solid #fff2d8; }
+.pill-green{ background:#f0fdf4; color:#046c4e; border:1px solid #dcf7e6; }
+.pill-red{ background:#fff0f0; color:#b32424; border:1px solid #ffdede; }
+.pill-orange{ background: linear-gradient(180deg,#fff4e6,#fff2e8); color:#8a4b00; border:1px solid #ffe7cc; }
+
+/* ensure checkbox in header doesn't push layout on narrow screens */
+.card-actions input[type="checkbox"]{ transform: scale(1.05); cursor:pointer; }
+
+.tracking{
+  font-weight:800;
+  font-size:15px;
+  color:var(--accent);
+  letter-spacing:0.2px;
+}
+
+.meta{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* status pill — tactile, spaced from customer name */
+.status{
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-right: 10px; /* ensures separation from other meta */
+}
+
+/* variants */
+.pill-blue{ background: linear-gradient(180deg,#eaf3ff,#e6f6ff); color:#0b61d6; border:1px solid #dbeeff; }
+.pill-yellow{ background: linear-gradient(180deg,#fff8e5,#fff5dd); color:#7a4f00; border:1px solid #fff2d8; }
+.pill-green{ background:#f0fdf4; color:#046c4e; border:1px solid #dcf7e6; }
+.pill-red{ background:#fff0f0; color:#b32424; border:1px solid #ffdede; }
+
+/* body */
+.card-body{ margin-top:6px; color:var(--text); line-height:1.4; }
+.card-body .route{ font-weight:800; margin-bottom:6px; font-size:16px; color:var(--accent-2); }
+.card-body .meta-small{ color:var(--muted); font-size:13px; }
+
+/* small detail row (icons + labels) */
+.card-details{ display:flex; gap:12px; align-items:center; color:var(--muted); font-size:13px; }
+.card-details .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); opacity:0.08; margin-right:6px; }
+
+/* footer + actions */
+.card-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  gap:12px;
+}
+
+.card-footer .updated{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* action buttons style (compact and aligned) */
+.card-footer .actions{ display:flex; gap:10px; align-items:center; }
+
+/* buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: auto;
+  padding: 0; /* individual variants set padding */
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ghost */
+.btn-ghost{
+  padding: 10px 12px;
+  border-radius:10px;
+  background:transparent;
+  border:1px solid rgba(15,23,42,0.06);
+  color:var(--accent-2);
+  font-weight:700;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+.btn-ghost:hover{ background:rgba(15,23,42,0.02); }
+
+/* outline */
+.btn-outline{
+  padding: 10px 12px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid var(--border-strong);
+  color:var(--muted);
+  font-weight:700;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+.btn-outline:hover{ background:var(--pmj-bg); }
+
+/* primary */
+.btn-primary{
+  padding: 10px 12px;
+  border-radius:10px;
+  background: linear-gradient(180deg,var(--primary),var(--primary-600));
+  color:#fff;
+  font-weight:700;
+  box-shadow:0 12px 30px rgba(31,111,235,0.12);
+  border:0;
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+.btn-primary:hover{ transform: translateY(-1px); }
+
+/* make .btns behave like .actions */
+.btns { display:flex; gap:10px; align-items:center; }
+
+/* subtle focus for keyboard users */
+.btn:focus-visible, .btn-primary:focus-visible, .btn-ghost:focus-visible{
+  outline:3px solid rgba(31,111,235,0.12);
+  outline-offset:3px;
+}
+
+/* ==========================
+   Table view
+   ========================== */
+.shipments-table{
+  margin-top:14px;
+}
+
+.shipment-table-wrapper{
+  border-radius:12px;
+  overflow:auto;
+  border:1px solid var(--border-strong);
+  background:linear-gradient(180deg,#fff,#fbfdff);
+  box-shadow: var(--shadow-soft);
+}
+
+.shipment-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
+
+.shipment-table th, .shipment-table td{
+  padding:12px 14px;
+  border-bottom:1px solid rgba(15,23,42,0.02);
+  font-size:14px;
+  color:var(--text);
+}
+
+.shipment-table thead th{
+  background:transparent;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.shipment-table tbody tr:hover{
+  background:#fbfdff;
+}
+
+/* monospace tiny helper */
+.mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* empty state */
+.shipments-empty{
+  padding: 40px;
+  background: #fbfdff;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--muted);
+  font-weight:700;
+}
+
+/* ==========================
+   Modal & form polish
+   ========================== */
+.modal-backdrop{ position:fixed; inset:0; background: rgba(6,12,25,0.36); display:flex; align-items:center; justify-content:center; z-index:5000; padding:24px; }
+.modal{ width:760px; max-width: calc(100% - 48px); background:var(--card-bg); border-radius:14px; box-shadow:0 36px 90px rgba(20,40,80,0.12); overflow:hidden; }
+.modal-header{ display:flex; justify-content:space-between; align-items:center; padding:18px 20px; border-bottom:1px solid rgba(15,23,42,0.04); }
+.modal-header h3{ margin:0; font-size:20px; font-weight:800; }
+.modal-header .modal-actions{ display:flex; gap:14px; }
+.modal-header .btn-ghost, .modal-header .btn-primary{ padding: 8px 14px; box-shadow: none; }
+.modal-header .btn-primary{ box-shadow: 0 4px 12px rgba(31,111,235,0.1); }
+.modal-body{ padding:20px; max-height:72vh; overflow:auto; }
+.form-row{ margin-bottom:14px; }
+.form-row label{ display:block; font-weight:700; margin-bottom:8px; color:var(--muted); font-size:13px; }
+.form-row input, .form-row select, .form-row textarea{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(15,23,42,0.06); background: linear-gradient(180deg,#fff,#fbfdff); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); font-size:14px; color:var(--text); }
+
+/* modal actions row */
+.modal-actions-right{ display:flex; gap:14px; align-items:center; }
+
+/* ==========================
+   Responsive tweaks
+   ========================== */
+@media (max-width:900px){
+  .card-grid{ grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); }
+  .modal{ width:92%; }
+}
+
+@media (max-width:520px){
+  .shipments-topbar{ flex-direction:column; align-items:stretch; gap:14px; }
+  .card-grid{ grid-template-columns: 1fr; gap:16px; }
+  .modal{ width:96%; }
+  .tracking-widget input{ min-width: 160px; max-width: 62vw; }
+}
+
+/* ==========================
+   Utility helpers
+   ========================== */
+.u-muted{ color:var(--muted); }
+.u-row{ display:flex; gap:12px; align-items:center; }
+

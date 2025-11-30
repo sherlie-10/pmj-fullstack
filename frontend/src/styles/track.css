@@ -1,0 +1,14 @@
+.track-card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(12,34,80,0.06);
+  margin-bottom: 20px;
+}
+
+.track-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+}

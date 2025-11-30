@@ -1,0 +1,176 @@
+/* ===========================
+   PMJ HEADER – CLEAN + PREMIUM
+   =========================== */
+
+:root{
+  /* adjust these to your theme */
+  --accent: #243957; /* example dark blue */
+}
+
+/* Header container */
+.pmj-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: var(--accent);
+  color: rgb(219, 177, 7);
+  box-shadow: 0 6px 18px rgba(5, 17, 40, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* BRAND NAME (LEFT) */
+.pmj-header .brand {
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  margin-right: 48px;   /* ensures space from nav */
+  flex-shrink: 0;       /* prevents collapsing on smaller screens */
+  color: rgb(219, 177, 7);
+}
+
+/* Prevent brand from turning purple after click */
+.pmj-header .brand:link,
+.pmj-header .brand:visited,
+.pmj-header .brand:hover,
+.pmj-header .brand:active {
+  color: rgb(219, 177, 7) !important;
+  text-decoration: none !important;
+}
+
+/* NAVIGATION (RIGHT SIDE) */
+.pmj-header nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+/* links group */
+.pmj-header nav .nav-links {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+/* profile controls (email/role/logout) */
+.pmj-header .nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* link style */
+.pmj-header nav a {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.pmj-header nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.95);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.btn.link-btn {
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+  color: #fff;
+}
+
+/* hamburger (hidden on desktop) */
+.pmj-header .hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  margin-left: 12px;
+}
+
+/* small utility text */
+.muted.small {
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+}
+
+/* MOBILE: responsive rules */
+@media (max-width: 880px) {
+  .pmj-header {
+    padding: 12px 18px;
+  }
+
+  .pmj-header .brand {
+    font-size: 18px;
+    margin-right: 12px;
+  }
+
+  /* nav becomes a dropdown panel */
+  .pmj-header nav {
+    position: absolute;
+    right: 16px;
+    top: 64px;
+    background: var(--accent);
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(5,17,40,0.12);
+    transform-origin: top right;
+    transform: scale(0.98);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+    min-width: 180px;
+  }
+
+  .pmj-header nav.open {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  .pmj-header .nav-links {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .pmj-header .nav-links a {
+    width: 100%;
+    text-align: right;
+    padding: 8px 10px;
+  }
+
+  .pmj-header .nav-profile {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .pmj-header .hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
