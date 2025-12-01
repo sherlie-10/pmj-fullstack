@@ -1,70 +1,68 @@
-/* ===========================
-   PMJ HEADER – CLEAN + PREMIUM
-   =========================== */
+/* ==========================================
+   PMJ LOGISTICS SOLUTIONS — PREMIUM HEADER
+   ========================================== */
 
-:root{
-  /* adjust these to your theme */
-  --accent: #243957; /* example dark blue */
+/* Brand colors */
+:root {
+  --accent: #243957;   /* Navy blue */
+  --brand-gold: rgb(219, 177, 7);
 }
 
-/* Header container */
+/* =====================
+   DESKTOP HEADER
+   ===================== */
+
 .pmj-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 14px 32px;
   background: var(--accent);
-  color: rgb(219, 177, 7);
-  box-shadow: 0 6px 18px rgba(5, 17, 40, 0.12);
+  color: var(--brand-gold);
   position: sticky;
   top: 0;
   z-index: 50;
+  box-shadow: 0 6px 18px rgba(5, 17, 40, 0.12);
 }
 
-/* BRAND NAME (LEFT) */
+/* Brand */
 .pmj-header .brand {
   font-weight: 800;
   font-size: 22px;
   letter-spacing: 0.3px;
   text-decoration: none;
-  margin-right: 48px;   /* ensures space from nav */
-  flex-shrink: 0;       /* prevents collapsing on smaller screens */
-  color: rgb(219, 177, 7);
+  flex-shrink: 0;
+  color: var(--brand-gold) !important;
 }
 
-/* Prevent brand from turning purple after click */
-.pmj-header .brand:link,
 .pmj-header .brand:visited,
 .pmj-header .brand:hover,
 .pmj-header .brand:active {
-  color: rgb(219, 177, 7) !important;
-  text-decoration: none !important;
+  color: var(--brand-gold) !important;
 }
 
-/* NAVIGATION (RIGHT SIDE) */
-.pmj-header nav {
+/* Desktop NAV */
+.pmj-header .pmj-nav {
   display: flex;
   align-items: center;
   gap: 22px;
 }
 
-/* links group */
-.pmj-header nav .nav-links {
+.pmj-header .nav-links {
   display: flex;
   gap: 18px;
   align-items: center;
 }
 
-/* profile controls (email/role/logout) */
 .pmj-header .nav-profile {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
 }
 
-/* link style */
-.pmj-header nav a {
-  color: rgba(255, 255, 255, 0.95);
+/* Links */
+.pmj-header .pmj-nav a {
+  color: rgba(255,255,255,0.95);
   text-decoration: none;
   font-weight: 600;
   padding: 8px 12px;
@@ -72,8 +70,8 @@
   transition: background 0.15s ease, transform 0.1s ease;
 }
 
-.pmj-header nav a:hover {
-  background: rgba(255, 255, 255, 0.1);
+.pmj-header .pmj-nav a:hover {
+  background: rgba(255,255,255,0.12);
   transform: translateY(-2px);
 }
 
@@ -89,31 +87,32 @@
 .btn-ghost {
   background: transparent;
   color: rgba(255,255,255,0.95);
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 .btn.link-btn {
-  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+  background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
   color: #fff;
 }
 
-/* hamburger (hidden on desktop) */
-.pmj-header .hamburger {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: white;
-  margin-left: 12px;
-}
-
-/* small utility text */
 .muted.small {
   color: rgba(255,255,255,0.85);
   font-size: 13px;
 }
 
-/* MOBILE: responsive rules */
+/* Hamburger (desktop hidden) */
+.pmj-header .hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* =====================
+   MOBILE HEADER
+   ===================== */
+
 @media (max-width: 880px) {
   .pmj-header {
     padding: 12px 18px;
@@ -121,39 +120,46 @@
 
   .pmj-header .brand {
     font-size: 18px;
-    margin-right: 12px;
   }
 
-  /* nav becomes a dropdown panel */
-  .pmj-header nav {
+  /* Hide desktop nav layout */
+  .pmj-header .pmj-nav {
     position: absolute;
     right: 16px;
-    top: 64px;
+    top: calc(100% + 10px);     /* below the header */
     background: var(--accent);
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
     padding: 14px;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(5,17,40,0.12);
-    transform-origin: top right;
-    transform: scale(0.98);
+    border-radius: 10px;
+
+    /* smooth open animation */
     opacity: 0;
+    transform: translateY(-6px) scale(0.98);
     pointer-events: none;
-    transition: opacity 180ms ease, transform 180ms ease;
+    transition: opacity 160ms ease, transform 160ms ease;
+
+    /* layout constraints */
+    width: auto;
     min-width: 180px;
+    max-width: 86vw;
+
+    z-index: 60; /* above header */
   }
 
-  .pmj-header nav.open {
+  /* Menu when OPEN */
+  .pmj-header .pmj-nav.open {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
     pointer-events: auto;
   }
 
+  /* Nav links stacked vertically */
   .pmj-header .nav-links {
     flex-direction: column;
-    align-items: flex-end;
     width: 100%;
+    align-items: flex-end;
   }
 
   .pmj-header .nav-links a {
@@ -162,15 +168,20 @@
     padding: 8px 10px;
   }
 
+  /* Profile items stacked */
   .pmj-header .nav-profile {
     flex-direction: column;
-    align-items: flex-end;
     width: 100%;
+    align-items: flex-end;
   }
 
+  /* Show hamburger on mobile */
   .pmj-header .hamburger {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    z-index: 70; /* always above menu */
   }
 }
