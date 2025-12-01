@@ -1,25 +1,31 @@
+// src/components/Header.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../auth";               // <-- corrected path (from src/components -> src/auth)
-import "../styles/header.css";                   // <-- corrected path (from src/components -> src/styles)
+import { useAuth } from "../auth"; // make sure this path is correct
+import "../styles/header.css";
 
 export default function Header() {
-  const auth = (typeof useAuth === "function") ? useAuth() : null;
+  // MUST call hooks unconditionally at top-level
+  const auth = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
+  // safe fallbacks so header still renders in builds
   const userEmail = auth?.user?.email || localStorage.getItem("pmj_email") || "";
   const role = (auth?.role || localStorage.getItem("pmj_role") || "").toUpperCase();
   const isAdmin = role === "ADMIN";
 
   function handleLogout() {
     if (auth?.logout) {
-      auth.logout();
-    } else {
-      localStorage.removeItem("pmj_token");
-      localStorage.removeItem("pmj_role");
-      localStorage.removeItem("pmj_email");
+      try {
+        auth.logout();
+      } catch (e) {
+        // ignore - fallback to clearing storage
+      }
     }
+    localStorage.removeItem("pmj_token");
+    localStorage.removeItem("pmj_role");
+    localStorage.removeItem("pmj_email");
     navigate("/login");
   }
 
@@ -36,7 +42,7 @@ export default function Header() {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="nav-links">
+        <div className="nav-links" aria-hidden={!open && window.innerWidth < 768}>
           <Link to="/">Home</Link>
           <Link to="/enquiry">Enquiry</Link>
           <Link to="/shipments">Shipments</Link>
@@ -64,7 +70,7 @@ export default function Header() {
         aria-expanded={open}
         onClick={() => setOpen(v => !v)}
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path
             fill="currentColor"
             d={open
