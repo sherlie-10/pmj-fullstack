@@ -20,7 +20,7 @@ import EnquiryForm from "./components/EnquiryForm";
 import EnquiryList from "./components/EnquiryList";
 import Track from "./components/Track";
 
-/* Global / split styles — load variables + base first, then per-area sheets */
+
 import "./styles/_variables.css";
 import "./styles/base.css";
 import "./styles/header.css";

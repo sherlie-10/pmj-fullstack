@@ -1,39 +1,136 @@
+/* ==========================================
+   PMJ LOGISTICS SOLUTIONS — FOOTER (PRO)
+   Compact, clean, mobile-friendly footer
+   ========================================== */
+
+:root {
+  --footer-max-mobile: 48vh; /* cap footer height on small screens */
+  --footer-pad-mobile: 14px;
+}
+
+/* Root footer */
 .pmj-footer {
   background: linear-gradient(180deg, var(--footer-grad-a), var(--footer-grad-b));
   color: var(--gold);
   margin-top: 40px;
-  padding-top: 34px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -4px 20px rgba(23, 58, 98, 0.12);
+  padding-top: 12px 0 12px 0;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -4px 16px rgba(23, 58, 98, 0.10);
+  max-height: 50vh;
+  /*position: relative;*/
+  overflow: auto;
 }
-.footer-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-bottom: 24px; }
-.footer-col h3{ margin:0 0 8px; font-size:22px; font-weight:700; }
-.footer-col p{ margin:6px 0; color: #b2a10a; }
-.footer-col ul{ padding:0; list-style:none; }
-.footer-bottom{ text-align:center; padding:14px 0; border-top:1px solid rgba(20,54,96,0.25); font-size:14px; }
-@media (max-width:820px){ .footer-top{ grid-template-columns:1fr; text-align:center; } }
 
-/* footer link color & visited/hover handling */
+/* Top section layout (desktop) */
+.footer-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 58px;
+  padding: 0 20px 12px 20px;
+}
+
+.footer-col h3,
+.footer-col h4 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.footer-col p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #b2a10a;
+}
+
+.footer-col .footer-small {
+  margin-top: 4px;
+  font-size: 15px;
+}
+
+.footer-col ul {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+/* bottom copyright bar */
+.footer-bottom {
+  text-align: center;
+  padding: 6px 0;
+  border-top: 1px solid rgba(20,54,96,0.22);
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+/* ==========================================
+   LINK COLORS & HOVER
+   ========================================== */
 .footer-col ul li a,
 .footer-col ul li a:visited {
-  color: var(--gold);            /* use your golden variable */
+  color: var(--gold);
   text-decoration: none;
   opacity: 0.95;
   font-weight: 500;
 }
 
-/* stronger specificity in case browser or other CSS adds visited color */
 .footer-col a,
 footer a {
   color: var(--gold) !important;
   text-decoration: none !important;
 }
 
-/* hover: subtle underline to indicate interactivity */
 .footer-col ul li a:hover,
 .footer-col ul li a:focus {
   opacity: 1;
   text-decoration: underline;
   color: var(--gold);
+}
+
+/* ==========================================
+   MOBILE — compact responsive footer
+   ========================================== */
+@media (max-width: 820px) {
+
+  /* 💡 THIS IS THE FIX: cap footer height */
+  .pmj-footer {
+    max-height: var(--footer-max-mobile);
+    overflow-y: auto;  
+    -webkit-overflow-scrolling: touch;
+    padding-top: var(--footer-pad-mobile);
+    padding-bottom: calc(var(--footer-pad-mobile) + env(safe-area-inset-bottom));
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 39px;
+    padding-bottom: 12px;
+  }
+
+  .footer-col h3,
+  .footer-col h4 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .footer-col p {
+    font-size: 14px;
+    margin: 4px 0;
+  }
+
+  .footer-col ul {
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .footer-col ul li a {
+    font-size: 15px;
+    padding: 2px 0;
+  }
+
+  .footer-bottom {
+    padding: 10px 0;
+    font-size: 15px;
+  }
 }

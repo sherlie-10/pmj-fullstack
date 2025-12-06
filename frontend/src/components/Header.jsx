@@ -1,12 +1,14 @@
 import React, { useState,useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth";
 import "../styles/header.css";
 
 export default function Header() {
   const auth = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
+  
 
   useEffect(() => {
   if (open) {
@@ -20,6 +22,11 @@ export default function Header() {
   };
 }, [open]);
 
+// Close mobile nav when route changes (footer links, header links, anything)
+useEffect(() => {
+  setOpen(false);
+  window.scrollTo({ top: 0, behavior: "instant" });
+}, [location.pathname]);
 
   const userEmail =
     auth?.user?.email || localStorage.getItem("pmj_email") || "";

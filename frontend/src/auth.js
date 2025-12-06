@@ -1,5 +1,5 @@
-// src/auth.js
 import React, { createContext, useContext, useEffect, useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import * as api from "./api/api";
 
 const AuthContext = createContext();
@@ -37,28 +37,11 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // Optional: verify token on startup (uncomment if backend supports /user/me)
-  // useEffect(() => {
-  //   async function verify() {
-  //     const t = localStorage.getItem('pmj_token');
-  //     if (!t) return;
-  //     try {
-  //       const profile = await api.getProfile(t);
-  //       setRole(profile.role || 'USER');
-  //       setUserEmail(profile.email || localStorage.getItem('pmj_email'));
-  //     } catch (e) {
-  //       setToken(null); setRole(null); setUserEmail(null);
-  //       localStorage.removeItem('pmj_token'); localStorage.removeItem('pmj_role');
-  //     }
-  //   }
-  //   verify();
-  // }, []);
-
   function logout() {
     setToken(null);
     setUserEmail(null);
     setRole(null);
-    // also remove storage proactively
+
     localStorage.removeItem("pmj_token");
     localStorage.removeItem("pmj_email");
     localStorage.removeItem("pmj_role");
